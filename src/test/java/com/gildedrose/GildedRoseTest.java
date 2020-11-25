@@ -13,20 +13,20 @@ public class GildedRoseTest {
     }
 
     @Test
-    void systemLowersValues() {
+    void sellInAndQualityDecreaseDaily() {
         Item item = createAndUpdate("foo", 15, 25);
         assertEquals(14, item.sellIn);
         assertEquals(24, item.quality);
     }
 
     @Test
-    void qualityDegradesTwiceAsFastAfterSellByPasses() {
+    void qualityDegradesTwiceAsFastAfterSellInLessThanZero() {
         Item item = createAndUpdate("foo", 0, 17);
         assertEquals(15, item.quality);
     }
 
     @Test
-    void qualityIsNeverNegative() {
+    void qualityCannotGoBelowZero() {
         Item item = createAndUpdate("foo", 0, 0);
         assertEquals(0, item.quality);
     }
@@ -38,7 +38,7 @@ public class GildedRoseTest {
     }
 
     @Test
-    void qualityNeverMoreThanFifty() {
+    void qualityCannotBeGreaterThanFifty() {
         Item item = createAndUpdate("Aged Brie", 8, 50);
         assertEquals(50, item.quality);
     }
@@ -51,25 +51,25 @@ public class GildedRoseTest {
     }
 
     @Test
-    void backstagePassesIncraseInQuality() {
+    void backstagePassesIncreaseInQuality() {
         Item item = createAndUpdate("Backstage passes to a TAFKAL80ETC concert", 25, 30);
         assertEquals(31, item.quality);
     }
 
     @Test
-    void backstagePassesIncraseByTwo() {
+    void backstagePassesIncreaseByTwoWhenSellInLessThanEleven() {
         Item item = createAndUpdate("Backstage passes to a TAFKAL80ETC concert", 10, 30);
         assertEquals(32, item.quality);
     }
 
     @Test
-    void backstagePassesIncraseByThree() {
+    void backstagePassesIncreaseByThreeWhenSellInLessThanSix() {
         Item item = createAndUpdate("Backstage passes to a TAFKAL80ETC concert", 5, 30);
         assertEquals(33, item.quality);
     }
 
     @Test
-    void backstagePassesQualityToZero() {
+    void backstagePassesQualityToZeroAfterSellInPasses() {
         Item item = createAndUpdate("Backstage passes to a TAFKAL80ETC concert", 0, 30);
         assertEquals(0, item.quality);
     }
