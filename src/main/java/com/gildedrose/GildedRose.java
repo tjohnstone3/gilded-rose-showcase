@@ -1,9 +1,6 @@
 package com.gildedrose;
 
-import com.gildedrose.strategies.AgedBrieStrategy;
-import com.gildedrose.strategies.BackstagePassStrategy;
-import com.gildedrose.strategies.ItemStrategy;
-import com.gildedrose.strategies.SulfurasStrategy;
+import com.gildedrose.strategies.*;
 
 class GildedRose {
     Item[] items;
@@ -28,6 +25,9 @@ class GildedRose {
         }
         if (item.name.equals(ItemConstants.AGED_BRIE)) {
             return new AgedBrieStrategy();
+        }
+        if (item.name.equals(ItemConstants.CONJURED)) {
+            return new ConjuredItemStrategy();
         }
         return new ItemStrategy();
     }

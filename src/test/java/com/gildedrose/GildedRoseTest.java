@@ -98,14 +98,32 @@ public class GildedRoseTest {
         Item item = createAndUpdate("foo", -1, 1);
         assertEquals(0, item.quality);
 
-        item = createAndUpdate("Sulfuras, Hand of Ragnaros", -1, 1);
-        assertEquals(1, item.quality);
+        item = createAndUpdate("Sulfuras, Hand of Ragnaros", -1, 80);
+        assertEquals(80, item.quality);
     }
 
     @Test
     void agedBrieMaxQualityFifty() {
         Item item = createAndUpdate("Aged Brie", 0, 49);
         assertEquals(50, item.quality);
+    }
+
+    @Test
+    void conjuredItemsDegradeTwiceAsFast() {
+        Item item = createAndUpdate("Conjured", 10, 30);
+        assertEquals(28, item.quality);
+    }
+
+    @Test
+    void conjuredItemsSellInDecrement() {
+        Item item = createAndUpdate("Conjured", 10, 30);
+        assertEquals(9, item.sellIn);
+    }
+
+    @Test
+    void conjuredItemsDegradeTwiceAsFastWhenExpired() {
+        Item item = createAndUpdate("Conjured", 0, 30);
+        assertEquals(26, item.quality);
     }
 
     private Item createAndUpdate(String name, int sellIn, int quality) {
